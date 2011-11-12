@@ -1,0 +1,17 @@
+leo
+joy l
+tom r
+jerry l l
+joe l r
+terry r l
+sue r r
+john l l l
+ray l l r
+ben l r l
+amy l r r
+billy r l l
+tony r l r
+archie r r l
+peggy r r r
+quit
+

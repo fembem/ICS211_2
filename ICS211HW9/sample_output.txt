@@ -1,0 +1,212 @@
+leo@peachy:~/eclipse_workspace/ICS211HW9$ java -cp bin BinaryTree < input.txt 
+Enter root node string
+the tree is:
+leo
+
+
+Enter string to insert followed by insertion path
+i.e. "baz l r" to insert string "baz" as right node of left subtree of the root
+Added node at path l 
+the tree is:
+leo
+    joy
+
+
+Enter string to insert followed by insertion path
+i.e. "baz l r" to insert string "baz" as right node of left subtree of the root
+Added node at path r 
+the tree is:
+leo
+    joy
+    tom
+
+
+Enter string to insert followed by insertion path
+i.e. "baz l r" to insert string "baz" as right node of left subtree of the root
+Added node at path l l 
+the tree is:
+leo
+    joy
+        jerry
+    tom
+
+
+Enter string to insert followed by insertion path
+i.e. "baz l r" to insert string "baz" as right node of left subtree of the root
+Added node at path l r 
+the tree is:
+leo
+    joy
+        jerry
+        joe
+    tom
+
+
+Enter string to insert followed by insertion path
+i.e. "baz l r" to insert string "baz" as right node of left subtree of the root
+Added node at path r l 
+the tree is:
+leo
+    joy
+        jerry
+        joe
+    tom
+        terry
+
+
+Enter string to insert followed by insertion path
+i.e. "baz l r" to insert string "baz" as right node of left subtree of the root
+Added node at path r r 
+the tree is:
+leo
+    joy
+        jerry
+        joe
+    tom
+        terry
+        sue
+
+
+Enter string to insert followed by insertion path
+i.e. "baz l r" to insert string "baz" as right node of left subtree of the root
+Added node at path l l l 
+the tree is:
+leo
+    joy
+        jerry
+            john
+        joe
+    tom
+        terry
+        sue
+
+
+Enter string to insert followed by insertion path
+i.e. "baz l r" to insert string "baz" as right node of left subtree of the root
+Added node at path l l r 
+the tree is:
+leo
+    joy
+        jerry
+            john
+            ray
+        joe
+    tom
+        terry
+        sue
+
+
+Enter string to insert followed by insertion path
+i.e. "baz l r" to insert string "baz" as right node of left subtree of the root
+Added node at path l r l 
+the tree is:
+leo
+    joy
+        jerry
+            john
+            ray
+        joe
+            ben
+    tom
+        terry
+        sue
+
+
+Enter string to insert followed by insertion path
+i.e. "baz l r" to insert string "baz" as right node of left subtree of the root
+Added node at path l r r 
+the tree is:
+leo
+    joy
+        jerry
+            john
+            ray
+        joe
+            ben
+            amy
+    tom
+        terry
+        sue
+
+
+Enter string to insert followed by insertion path
+i.e. "baz l r" to insert string "baz" as right node of left subtree of the root
+Added node at path r l l 
+the tree is:
+leo
+    joy
+        jerry
+            john
+            ray
+        joe
+            ben
+            amy
+    tom
+        terry
+            billy
+        sue
+
+
+Enter string to insert followed by insertion path
+i.e. "baz l r" to insert string "baz" as right node of left subtree of the root
+Added node at path r l r 
+the tree is:
+leo
+    joy
+        jerry
+            john
+            ray
+        joe
+            ben
+            amy
+    tom
+        terry
+            billy
+            tony
+        sue
+
+
+Enter string to insert followed by insertion path
+i.e. "baz l r" to insert string "baz" as right node of left subtree of the root
+Added node at path r r l 
+the tree is:
+leo
+    joy
+        jerry
+            john
+            ray
+        joe
+            ben
+            amy
+    tom
+        terry
+            billy
+            tony
+        sue
+            archie
+
+
+Enter string to insert followed by insertion path
+i.e. "baz l r" to insert string "baz" as right node of left subtree of the root
+Added node at path r r r 
+the tree is:
+leo
+    joy
+        jerry
+            john
+            ray
+        joe
+            ben
+            amy
+    tom
+        terry
+            billy
+            tony
+        sue
+            archie
+            peggy
+
+
+Enter string to insert followed by insertion path
+i.e. "baz l r" to insert string "baz" as right node of left subtree of the root
+

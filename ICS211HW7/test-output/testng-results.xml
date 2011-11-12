@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" total="1" passed="1">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="115" started-at="2011-10-16T08:07:27Z" finished-at="2011-10-16T08:07:27Z">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="115" started-at="2011-10-16T08:07:27Z" finished-at="2011-10-16T08:07:27Z">
+      <class name="SortedListTest">
+        <test-method status="PASS" signature="sortedListCreation()[pri:0, instance:SortedListTest@141b571]" name="sortedListCreation" duration-ms="91" started-at="2011-10-16T08:07:27Z" finished-at="2011-10-16T08:07:27Z">
+        </test-method>
+      </class>
+    </test>
+  </suite>
+</testng-results>
