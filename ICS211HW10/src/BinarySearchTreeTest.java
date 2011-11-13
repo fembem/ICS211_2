@@ -38,8 +38,14 @@ public class BinarySearchTreeTest {
   }
 
   @Test(expected=NoSuchElementException.class)
-  public void testFindPrevious() {
+  public void testFindNonExistingPrevious() {
     tree.findPrevious(new Record("d"));
+  }
+  
+  @Test(expected=NoSuchElementException.class)
+  public void testFindNextOnRoot() {
+    Record next = tree.findNext(new Record("m"));
+    System.out.println(next);
   }
 
 }

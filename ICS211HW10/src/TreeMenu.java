@@ -12,6 +12,7 @@
  */
 
 import javax.swing.*;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.Iterator;
 import java.util.regex.*;
@@ -52,7 +53,9 @@ public class TreeMenu {
   private static boolean executeMenu(BinarySearchTree<Record> db) {
     String[] choices =
         { "add a new record", "change value for a record", "remove a record",
-            "display the database", "exit program" };
+            "display the database", 
+            "get prev", "get next",
+            "exit program" };
     // ask the user to tell us what they want to do
     int choice =
         JOptionPane.showOptionDialog(null, "please enter", "taxpayers", JOptionPane.DEFAULT_OPTION,
@@ -69,6 +72,12 @@ public class TreeMenu {
       break;
     case 3:
       System.out.println(db.toString());
+      break;
+    case 4:
+      getPrevious(db);
+      break;
+    case 5:
+      getNext(db);
       break;
     // case 4: handled below
     }
@@ -176,6 +185,62 @@ public class TreeMenu {
         record.value = getUserInteger(prompt2);
         // this addition should replace the original record
         db.add(record);
+      }
+    }
+  }
+  
+  /*
+   * get the previous record in the database
+   * 
+   * @param db in which the record is changed
+   */
+  private static void getPrevious(BinarySearchTree<Record> db) {
+    final String prompt1 = "enter key";
+    String string = getUserString(prompt1);
+    if (string != null) { // null string means not a valid number
+      // build a key, that is, a record where only the key is valid
+      Record key = new Record(string);
+      Record record = null;
+      try{
+        record = db.findPrevious(key);
+      }
+      catch (NoSuchElementException nsee) {
+        JOptionPane.showMessageDialog(null, "key " + key + " does not have a previous key");
+        return;
+      }
+      if (record == null) { // not in database, cannot change value
+        JOptionPane.showMessageDialog(null, "key " + key + " not found in database");
+      }
+      else { // is in database
+        JOptionPane.showMessageDialog(null, "previous key: " + key.toString());
+      }
+    }
+  }
+  
+  /*
+   * get the next record in the database
+   * 
+   * @param db in which the record is changed
+   */
+  private static void getNext(BinarySearchTree<Record> db) {
+    final String prompt1 = "enter key";
+    String string = getUserString(prompt1);
+    if (string != null) { // null string means not a valid number
+      // build a key, that is, a record where only the key is valid
+      Record key = new Record(string);
+      Record record = null;
+      try{
+        record = db.findNext(key);
+      }
+      catch (NoSuchElementException nsee) {
+        JOptionPane.showMessageDialog(null, "key " + key + " does not have a previous key");
+        return;
+      }
+      if (record == null) { // not in database, cannot change value
+        JOptionPane.showMessageDialog(null, "key " + key + " not found in database");
+      }
+      else { // is in database
+        JOptionPane.showMessageDialog(null, "next key: " + key.toString());
       }
     }
   }
