@@ -26,6 +26,18 @@ public class BinarySearchTreeTest {
   }
 
   @Test
+  public void testFindNextThatIsADistantAncestor() {
+    Record next = tree.findNext(new Record("k"));
+    assertEquals(new Record("m").key, next.key);
+  }
+  
+  @Test
+  public void testFindPreviousOnRightChildWithNoChildren() {
+    Record next = tree.findPrevious(new Record("k"));
+    assertEquals(new Record("j").key, next.key);
+  }
+  
+  @Test
   public void testFindNextOnNoTargetRecord() {
     Record next = tree.findNext(new Record("z"));
     assertNull(next);

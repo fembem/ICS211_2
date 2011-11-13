@@ -6,7 +6,9 @@
  http://www2.hawaii.edu/~walbritt/ics211/treeBinarySearch/BinarySearchTree.java
  */
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Stack;
 
 public class BinarySearchTree<T extends java.lang.Comparable<T>> {
@@ -51,27 +53,61 @@ public class BinarySearchTree<T extends java.lang.Comparable<T>> {
   }
   
   private BinaryNode<T> findNode(BinaryNode<T> node, T key, 
-      BinaryNode<T> parent, BinaryNode<T>[] parentReturnSlot) {
+      BinaryNode<T> parent, List<BinaryNode<T>> path) {
     if (node == null) {
       return null;
     }
+    
+    if (parent != null) {
+      path.add(parent);
+    }
+    
     int order = node.item.compareTo(key);
     if (order == 0) {
-      parentReturnSlot[0] = parent;
       return node;
     }
     else if( order < 0) { //node.item < key
-      return findNode(node.right, key, parent, parentReturnSlot);
+      return findNode(node.right, key, node, path);
     }
     else {  //node.item > key
-      return findNode(node.left, key, parent, parentReturnSlot);
+      return findNode(node.left, key, node, path);
     }
   }
+  
+  private BinaryNode<T> findFirstAncestorWithLeftChild
+    (BinaryNode<T> node, List<BinaryNode<T>> path) {
+    
+    path.add(node);
+    for (int i = path.size() - 1; i >=1; i--) {
+      //check if the node at i is the left child of its parent node at i-1
+      if (path.get(i).equals(path.get(i-1).left)){
+        //return the parent
+        return path.get(i-1);
+      }
+    }
+    return null;
+    
+  }
+  
+  private BinaryNode<T> findFirstAncestorWithRightChild
+  (BinaryNode<T> node, List<BinaryNode<T>> path) {
+  
+  path.add(node);
+  for (int i = path.size() - 1; i >=1; i--) {
+    //check if the node at i is the left child of its parent node at i-1
+    if (path.get(i).equals(path.get(i-1).right)){
+      //return the parent
+      return path.get(i-1);
+    }
+  }
+  return null;
+  
+}
 
   public T findNext(T key) throws java.util.NoSuchElementException {
     
-    BinaryNode<T>[] parentReturnSlot = new BinaryNode[1];
-    BinaryNode<T> targetNode = findNode(root, key, null, parentReturnSlot);
+    List<BinaryNode<T>> path = new ArrayList<BinaryNode<T>>();
+    BinaryNode<T> targetNode = findNode(root, key, null, path);
     if (targetNode == null) {
       return null;
     }
@@ -82,23 +118,24 @@ public class BinarySearchTree<T extends java.lang.Comparable<T>> {
         targetNode = targetNode.left;
       }
       return targetNode.item;
-    } // there is only a next node if the node is the left child of another node
-    else if (parentReturnSlot[0] != null
-        && parentReturnSlot[0].left == targetNode
-        ) {  //node is a left child
-      //return the parent
-      return parentReturnSlot[0].item;
-    }
-    else {  //there is no next node
-      throw new java.util.NoSuchElementException();
+    } // there is only a next node if the node  or one of its ancestors
+    //is the left child of another node
+    else  {
+      BinaryNode<T> next = findFirstAncestorWithLeftChild(targetNode, path);
+      if (next != null) {
+        return next.item;
+      }
+      else {
+        throw new java.util.NoSuchElementException();
+      }
     }
     
   }
   
   public T findPrevious(T key) throws java.util.NoSuchElementException {
 
-    BinaryNode<T>[] parentReturnSlot = new BinaryNode[1];
-    BinaryNode<T> targetNode = findNode(root, key, null, parentReturnSlot);
+    List<BinaryNode<T>> path = new ArrayList<BinaryNode<T>>();
+    BinaryNode<T> targetNode = findNode(root, key, null, path);
     if (targetNode == null) {
       return null;
     }
@@ -109,15 +146,15 @@ public class BinarySearchTree<T extends java.lang.Comparable<T>> {
         targetNode = targetNode.right;
       }
       return targetNode.item;
-    } // there is only a previous node if the node is the left right of another node
-    else if (parentReturnSlot[0] != null
-        && parentReturnSlot[0].right == targetNode
-        ) {  //node is a right child
-      //return the parent
-      return parentReturnSlot[0].item;
-    }
-    else {  //there is no next node
-      throw new java.util.NoSuchElementException();
+    } // there is only a previous node if the node is the right of another node
+    else  {
+      BinaryNode<T> next = findFirstAncestorWithRightChild(targetNode, path);
+      if (next != null) {
+        return next.item;
+      }
+      else {
+        throw new java.util.NoSuchElementException();
+      }
     }
     
   }
