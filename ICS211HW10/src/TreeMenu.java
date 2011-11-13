@@ -1,5 +1,6 @@
 /* maintain a database of string keys and an integer value for each
  * @author  Biagioni, Edoardo
+ * @author  Dec, Leo
  * @assignment  10
  * @date  April 5, 2011
  * @bugs  no error message if you remove a record not in the database

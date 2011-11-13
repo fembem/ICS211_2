@@ -11,11 +11,17 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Stack;
 
+/**
+ * The Class BinarySearchTree.
+ *
+ * @param <T> the generic type
+ */
 public class BinarySearchTree<T extends java.lang.Comparable<T>> {
 
   /**
-   * A node in a binary tree
-   * 
+   * A node in a binary tree.
+   *
+   * @param <T> the generic type
    * @author Edo Biagioni
    * @lecture ICS 211 Mar 15 or later
    * @date March 14, 2011
@@ -23,14 +29,20 @@ public class BinarySearchTree<T extends java.lang.Comparable<T>> {
    */
 
   private static class BinaryNode<T> {
+    
+    /** The item. */
     private T item;
+    
+    /** The left. */
     private BinaryNode<T> left;
+    
+    /** The right. */
     private BinaryNode<T> right;
 
     /**
-     * constructor to build a node with no subtrees
-     * 
-     * @param the value to be stored by this node
+     * constructor to build a node with no subtrees.
+     *
+     * @param value the value
      */
     private BinaryNode(T value) {
       item = value;
@@ -39,11 +51,11 @@ public class BinarySearchTree<T extends java.lang.Comparable<T>> {
     }
 
     /**
-     * constructor to build a node with a specified (perhaps null) subtrees
-     * 
-     * @param the value to be stored by this node
-     * @param the left subtree for this node
-     * @param the right subtree for this node
+     * constructor to build a node with a specified (perhaps null) subtrees.
+     *
+     * @param value the value
+     * @param l the l
+     * @param r the r
      */
     private BinaryNode(T value, BinaryNode<T> l, BinaryNode<T> r) {
       item = value;
@@ -52,6 +64,16 @@ public class BinarySearchTree<T extends java.lang.Comparable<T>> {
     }
   }
   
+  
+  /**
+   * Find node.
+   *
+   * @param node the node
+   * @param key the key
+   * @param parent the parent
+   * @param path the path
+   * @return the binary node
+   */
   private BinaryNode<T> findNode(BinaryNode<T> node, T key, 
       BinaryNode<T> parent, List<BinaryNode<T>> path) {
     if (node == null) {
@@ -74,6 +96,14 @@ public class BinarySearchTree<T extends java.lang.Comparable<T>> {
     }
   }
   
+  /**
+   * Find first ancestor of a node with left child.
+   *
+   * @param node the node whose ancestors we are checking
+   * @param path the path from the node to the root in a list
+   * with the node being rightmost and the root leftmost
+   * @return the first ancestor with a left child
+   */
   private BinaryNode<T> findFirstAncestorWithLeftChild
     (BinaryNode<T> node, List<BinaryNode<T>> path) {
     
@@ -89,6 +119,14 @@ public class BinarySearchTree<T extends java.lang.Comparable<T>> {
     
   }
   
+  /**
+   * Find first ancestor of a node with right child.
+   *
+   * @param node the node whose ancestors we are checking
+   * @param path the path from the node to the root in a list
+   * with the node being rightmost and the root leftmost
+   * @return the first ancestor with a right child
+   */
   private BinaryNode<T> findFirstAncestorWithRightChild
   (BinaryNode<T> node, List<BinaryNode<T>> path) {
   
@@ -104,6 +142,13 @@ public class BinarySearchTree<T extends java.lang.Comparable<T>> {
   
 }
 
+  /**
+   * Find next.
+   *
+   * @param key the key of the node, of which we want the node after it
+   * @return the item in the 'next' node
+   * @throws NoSuchElementException there is no node 'after' the found node
+   */
   public T findNext(T key) throws java.util.NoSuchElementException {
     
     List<BinaryNode<T>> path = new ArrayList<BinaryNode<T>>();
@@ -132,6 +177,13 @@ public class BinarySearchTree<T extends java.lang.Comparable<T>> {
     
   }
   
+  /**
+   * Find previous.
+   *
+   * @param key the key of the node, of which we want the node before it
+   * @return the item in the 'before' node
+   * @throws NoSuchElementException there is no node 'before' the found node
+   */
   public T findPrevious(T key) throws java.util.NoSuchElementException {
 
     List<BinaryNode<T>> path = new ArrayList<BinaryNode<T>>();
@@ -161,10 +213,14 @@ public class BinarySearchTree<T extends java.lang.Comparable<T>> {
   
   
   /* the root of the tree is the only data field needed */
+  /** The root. */
   protected BinaryNode<T> root = null; // null when tree is empty
 
   /*
    * constructs an empty tree
+   */
+  /**
+   * Instantiates a new binary search tree.
    */
   public BinarySearchTree() {
     super();
@@ -175,6 +231,11 @@ public class BinarySearchTree<T extends java.lang.Comparable<T>> {
    * 
    * @param value to be used for the one element in the tree
    */
+  /**
+   * Instantiates a new binary search tree.
+   *
+   * @param value the value
+   */
   public BinarySearchTree(T value) {
     super();
     root = new BinaryNode<T>(value);
@@ -184,6 +245,11 @@ public class BinarySearchTree<T extends java.lang.Comparable<T>> {
    * constructs a tree with the given node as root
    * 
    * @param newRoot to be used as the root of the new tree
+   */
+  /**
+   * Instantiates a new binary search tree.
+   *
+   * @param newRoot the new root
    */
   public BinarySearchTree(BinaryNode<T> newRoot) {
     super();
@@ -196,6 +262,12 @@ public class BinarySearchTree<T extends java.lang.Comparable<T>> {
    * @param key identifies the node value desired
    * 
    * @return the node value found, or null if not found
+   */
+  /**
+   * Gets the.
+   *
+   * @param key the key
+   * @return the t
    */
   public T get(T key) {
     BinaryNode<T> node = root;
@@ -218,6 +290,11 @@ public class BinarySearchTree<T extends java.lang.Comparable<T>> {
    * 
    * @param value to be inserted
    */
+  /**
+   * Adds the.
+   *
+   * @param value the value
+   */
   public void add(T value) {
     root = add(value, root);
   }
@@ -230,6 +307,13 @@ public class BinarySearchTree<T extends java.lang.Comparable<T>> {
    * @param node that is the root of the subtree in which to insert
    * 
    * @return the subtree with the node inserted
+   */
+  /**
+   * Adds the.
+   *
+   * @param value the value
+   * @param node the node
+   * @return the binary node
    */
   protected BinaryNode<T> add(T value, BinaryNode<T> node) {
     if (node == null) {
@@ -257,6 +341,11 @@ public class BinarySearchTree<T extends java.lang.Comparable<T>> {
    * 
    * @param key such that value.compareTo(key) == 0 for the node to remove
    */
+  /**
+   * Removes the.
+   *
+   * @param key the key
+   */
   public void remove(T key) {
     root = remove(key, root);
   }
@@ -269,6 +358,13 @@ public class BinarySearchTree<T extends java.lang.Comparable<T>> {
    * @param node the root of the subtree from which to remove the value
    * 
    * @return the new tree with the value removed
+   */
+  /**
+   * Removes the.
+   *
+   * @param value the value
+   * @param node the node
+   * @return the binary node
    */
   protected BinaryNode<T> remove(T value, BinaryNode<T> node) {
     if (node == null) { // key not in tree
@@ -303,6 +399,12 @@ public class BinarySearchTree<T extends java.lang.Comparable<T>> {
     return node;
   }
 
+  /**
+   * Gets the rightmost.
+   *
+   * @param node the node
+   * @return the rightmost
+   */
   protected T getRightmost(BinaryNode<T> node) {
     assert (node != null);
     BinaryNode<T> right = node.right;
@@ -315,16 +417,31 @@ public class BinarySearchTree<T extends java.lang.Comparable<T>> {
   }
 
   /* iterator, traverses the tree in order */
+  /**
+   * Iterator.
+   *
+   * @return the iterator
+   */
   public Iterator<T> iterator() {
     return new TreeIterator(root);
   }
 
   /* traverses the tree in pre-order */
+  /**
+   * Pre iterator.
+   *
+   * @return the iterator
+   */
   public Iterator<T> preIterator() {
     return new TreeIterator(root, true);
   }
 
   /* traverses the tree in post-order */
+  /**
+   * Post iterator.
+   *
+   * @return the iterator
+   */
   public Iterator<T> postIterator() {
     return new TreeIterator(root, false);
   }
@@ -334,10 +451,19 @@ public class BinarySearchTree<T extends java.lang.Comparable<T>> {
    * 
    * @returns the string representation of the tree.
    */
+  /* (non-Javadoc)
+   * @see java.lang.Object#toString()
+   */
   public String toString() {
     return toString(root);
   }
 
+  /**
+   * To string.
+   *
+   * @param node the node
+   * @return the string
+   */
   protected String toString(BinaryNode<T> node) {
     if (node == null) {
       return "";
@@ -349,6 +475,11 @@ public class BinarySearchTree<T extends java.lang.Comparable<T>> {
    * unit test
    * 
    * @param arguments, ignored
+   */
+  /**
+   * The main method.
+   *
+   * @param arguments the arguments
    */
   public static void main(String[] arguments) {
     BinarySearchTree<Integer> tree = new BinarySearchTree<Integer>();
@@ -430,6 +561,9 @@ public class BinarySearchTree<T extends java.lang.Comparable<T>> {
    * @date March 12, 2008
    */
 
+  /**
+   * The Class TreeIterator.
+   */
   private class TreeIterator implements Iterator<T> {
     /*
      * the class variables keep track of how much the iterator has done so far, and what remains to
@@ -438,18 +572,33 @@ public class BinarySearchTree<T extends java.lang.Comparable<T>> {
      * second stack keeps track of whether the node visited is to the left (false) or right (true)
      * of its parent
      */
+    /** The root. */
     protected BinaryNode<T> root = null;
+    
+    /** The visiting. */
     protected Stack<BinaryNode<T>> visiting = new Stack<BinaryNode<T>>();
+    
+    /** The visiting right child. */
     protected Stack<Boolean> visitingRightChild = new Stack<Boolean>();
     /* only one of these booleans can be true */
+    /** The preorder. */
     boolean preorder = false;
+    
+    /** The inorder. */
     boolean inorder = true;
+    
+    /** The postorder. */
     boolean postorder = false;
 
     /*
      * constructor for in-order traversal
      * 
      * @param root of the tree to traverse
+     */
+    /**
+     * Instantiates a new tree iterator.
+     *
+     * @param root the root
      */
     public TreeIterator(BinaryNode<T> root) {
       this.root = root;
@@ -467,6 +616,12 @@ public class BinarySearchTree<T extends java.lang.Comparable<T>> {
      * 
      * @param inPreorder true if pre-order, false if post-order
      */
+    /**
+     * Instantiates a new tree iterator.
+     *
+     * @param root the root
+     * @param inPreorder the in preorder
+     */
     public TreeIterator(BinaryNode<T> root, boolean inPreorder) {
       this.root = root;
       visiting = new Stack<BinaryNode<T>>();
@@ -476,10 +631,16 @@ public class BinarySearchTree<T extends java.lang.Comparable<T>> {
       postorder = !preorder;
     }
 
+    /* (non-Javadoc)
+     * @see java.util.Iterator#hasNext()
+     */
     public boolean hasNext() {
       return (root != null);
     }
 
+    /* (non-Javadoc)
+     * @see java.util.Iterator#next()
+     */
     public T next() {
       if (!hasNext()) {
         throw new java.util.NoSuchElementException("no more elements");
@@ -500,6 +661,11 @@ public class BinarySearchTree<T extends java.lang.Comparable<T>> {
     }
 
     // return the node at the top of the stack, push the next node if any
+    /**
+     * Preorder next.
+     *
+     * @return the t
+     */
     private T preorderNext() {
       if (visiting.empty()) { // at beginning of iterator
         visiting.push(root);
@@ -530,6 +696,11 @@ public class BinarySearchTree<T extends java.lang.Comparable<T>> {
      * 
      * @changes visiting takes all nodes between node and the leftmost
      */
+    /**
+     * Push leftmost node.
+     *
+     * @param node the node
+     */
     private void pushLeftmostNode(BinaryNode<T> node) {
       // find the leftmost node
       if (node != null) {
@@ -541,6 +712,11 @@ public class BinarySearchTree<T extends java.lang.Comparable<T>> {
     /*
      * return the leftmost node that has not yet been visited that node is normally on top of the
      * stack inorder traversal doesn't use the visitingRightChild stack
+     */
+    /**
+     * Inorder next.
+     *
+     * @return the t
      */
     private T inorderNext() {
       if (visiting.empty()) { // at beginning of iterator
@@ -572,6 +748,11 @@ public class BinarySearchTree<T extends java.lang.Comparable<T>> {
      * 
      * @changes visiting takes all nodes between node and the leftmost
      */
+    /**
+     * Push leftmost node record.
+     *
+     * @param node the node
+     */
     private void pushLeftmostNodeRecord(BinaryNode<T> node) {
       // find the leftmost node
       if (node != null) {
@@ -582,6 +763,11 @@ public class BinarySearchTree<T extends java.lang.Comparable<T>> {
     }
 
     //
+    /**
+     * Postorder next.
+     *
+     * @return the t
+     */
     private T postorderNext() {
       if (visiting.empty()) { // at beginning of iterator
         // find the leftmost node, pushing all the intermediate nodes
@@ -616,11 +802,17 @@ public class BinarySearchTree<T extends java.lang.Comparable<T>> {
     }
 
     /* not implemented */
+    /* (non-Javadoc)
+     * @see java.util.Iterator#remove()
+     */
     public void remove() {
       throw new java.lang.UnsupportedOperationException("remove");
     }
 
     /* give the entire state of the iterator: the tree and the two stacks */
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     public String toString() {
       if (preorder) {
         return "pre: " + toString(root) + "\n" + visiting + "\n";
@@ -634,6 +826,12 @@ public class BinarySearchTree<T extends java.lang.Comparable<T>> {
       return "none of pre-order, in-order, or post-order are true";
     }
 
+    /**
+     * To string.
+     *
+     * @param node the node
+     * @return the string
+     */
     private String toString(BinaryNode<T> node) {
       if (node == null) {
         return "";
