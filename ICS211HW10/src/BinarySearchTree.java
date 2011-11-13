@@ -82,8 +82,8 @@ public class BinarySearchTree<T extends java.lang.Comparable<T>> {
         targetNode = targetNode.left;
       }
       return targetNode.item;
-    } // there is only a next of the node is the left child of another node
-    else if (parentReturnSlot.length != 0
+    } // there is only a next node if the node is the left child of another node
+    else if (parentReturnSlot[0] != null
         && parentReturnSlot[0].left == targetNode
         ) {  //node is a left child
       //return the parent
@@ -109,8 +109,8 @@ public class BinarySearchTree<T extends java.lang.Comparable<T>> {
         targetNode = targetNode.right;
       }
       return targetNode.item;
-    } // there is only a next of the node is the right child of another node
-    else if (parentReturnSlot.length != 0
+    } // there is only a previous node if the node is the left right of another node
+    else if (parentReturnSlot[0] != null
         && parentReturnSlot[0].right == targetNode
         ) {  //node is a right child
       //return the parent
