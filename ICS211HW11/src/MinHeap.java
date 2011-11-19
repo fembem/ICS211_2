@@ -1,12 +1,29 @@
 import java.util.List;
 import java.util.NoSuchElementException;
 
+/**
+ * The Class MinHeap.
+ * @author deC, Leo
+ * @param <E> the element type
+ */
 public class MinHeap<E extends Comparable<E>> {
 
+  /** The length. */
   int length = 1000;
+  
+  /** The data. */
   Object[] data = new Object[length];
+  
+  /** The max index. */
   int maxIndex = -1;
 
+  /**
+   * Adds the.
+   *
+   * @param e the e
+   * @return true, if successful
+   * @throws IllegalStateException the illegal state exception
+   */
   public boolean add(E e) throws IllegalStateException {
     long start = System.nanoTime();
     if (maxIndex < length - 1) {
@@ -23,6 +40,11 @@ public class MinHeap<E extends Comparable<E>> {
     }
   }
 
+  /**
+   * Heapify up.
+   *
+   * @param index the index
+   */
   private void heapifyUp(int index) {
     while (index > 0) {
       int parentIndex = getParentIndex(index);
@@ -37,24 +59,54 @@ public class MinHeap<E extends Comparable<E>> {
     }
   }
 
+  /**
+   * Gets the parent index.
+   *
+   * @param index the index
+   * @return the parent index
+   */
   private int getParentIndex(int index) {
     return (index - 1) / 2;
   }
 
+  /**
+   * Gets the left child index.
+   *
+   * @param index the index
+   * @return the left child index
+   */
   private int getLeftChildIndex(int index) {
     return 2 * index + 1;
   }
 
+  /**
+   * Gets the right child index.
+   *
+   * @param index the index
+   * @return the right child index
+   */
   private int getRightChildIndex(int index) {
     return 2 * index + 2;
   }
 
+  /**
+   * Swap elements.
+   *
+   * @param i the i
+   * @param j the j
+   */
   private void swapElements(int i, int j) {
     E temp = (E) data[i];
     data[i] = data[j];
     data[j] = temp;
   }
 
+  /**
+   * Removes the.
+   *
+   * @return the e
+   * @throws NoSuchElementException the no such element exception
+   */
   public E remove() throws NoSuchElementException {
 
     long start = System.nanoTime();
@@ -73,6 +125,11 @@ public class MinHeap<E extends Comparable<E>> {
     }
   }
 
+  /**
+   * Heapify down.
+   *
+   * @param index the index
+   */
   private void heapifyDown(int index) {
     // don't heapify down on last element or indices not corresponding to elements
     if (index >= maxIndex)
@@ -112,6 +169,11 @@ public class MinHeap<E extends Comparable<E>> {
 
   }
 
+  /**
+   * Check min heap property.
+   *
+   * @param index the index
+   */
   private void checkMinHeapProperty(int index) {
     if (index >= maxIndex)
       return;
@@ -133,6 +195,12 @@ public class MinHeap<E extends Comparable<E>> {
     checkMinHeapProperty(rightIndex);
   }
 
+  /**
+   * Contains all elements.
+   *
+   * @param elements the elements
+   * @return true, if successful
+   */
   public boolean containsAllElements(List<E> elements) {
     for (E element : elements) {
       boolean containsElement = containsElement(element);
@@ -144,10 +212,23 @@ public class MinHeap<E extends Comparable<E>> {
     return true;
   }
 
+  /**
+   * Contains element.
+   *
+   * @param element the element
+   * @return true, if successful
+   */
   public boolean containsElement(E element) {
     return containsElement(element, 0);
   }
 
+  /**
+   * Contains element.
+   *
+   * @param element the element
+   * @param index the index
+   * @return true, if successful
+   */
   private boolean containsElement(E element, int index) {
     if (index > maxIndex)
       return false;
@@ -158,6 +239,11 @@ public class MinHeap<E extends Comparable<E>> {
     return containsElement(element, leftIndex) || containsElement(element, rightIndex);
   }
 
+  /**
+   * Gets the size.
+   *
+   * @return the size
+   */
   public int getSize() {
     return maxIndex + 1;
   }
