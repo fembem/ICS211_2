@@ -213,7 +213,7 @@ public class TreeMenu {
         JOptionPane.showMessageDialog(null, "key " + key + " not found in database");
       }
       else { // is in database
-        JOptionPane.showMessageDialog(null, "previous key: " + key.toString());
+        JOptionPane.showMessageDialog(null, "previous key: " + record.key.toString());
       }
     }
   }
@@ -234,14 +234,14 @@ public class TreeMenu {
         record = db.findNext(key);
       }
       catch (NoSuchElementException nsee) {
-        JOptionPane.showMessageDialog(null, "key " + key + " does not have a previous key");
+        JOptionPane.showMessageDialog(null, "key " + key + " does not have a next key");
         return;
       }
       if (record == null) { // not in database, cannot change value
         JOptionPane.showMessageDialog(null, "key " + key + " not found in database");
       }
       else { // is in database
-        JOptionPane.showMessageDialog(null, "next key: " + key.toString());
+        JOptionPane.showMessageDialog(null, "next key: " + record.key.toString());
       }
     }
   }

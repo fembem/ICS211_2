@@ -7,7 +7,7 @@ import org.junit.Test;
 public class BinarySearchTreeTest {
 
   BinarySearchTree<Record> tree;
-  int N = 3;
+  int N = 8;
 
   @BeforeClass
   public static void setUpBeforeClass() throws Exception {
@@ -28,7 +28,7 @@ public class BinarySearchTreeTest {
   @Test
   public void testOnTreesOfSizeUpToN() {
     // generate trees of all size from 1 to N
-    for (int size = 1; size <= N; size++) {
+    for (int size = N-1; size >= 1; size--) {
       Integer[] integerArray = new Integer[size];
 
       System.out.println("working on arrays of size :" + size);
