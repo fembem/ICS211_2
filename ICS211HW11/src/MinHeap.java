@@ -12,6 +12,7 @@ public class MinHeap<E extends Comparable<E>> {
       maxIndex++;
       data[maxIndex] = e;
       heapifyUp(maxIndex);
+      checkMinHeapProperty(0);
       return true;
     } else {
       throw new IllegalStateException("cannot exceed maximum capacity of " + length);
@@ -50,10 +51,11 @@ public class MinHeap<E extends Comparable<E>> {
  
   public E remove() throws NoSuchElementException {
      if (maxIndex >= 0) {
-       E result = (E)data[maxIndex];
+       E result = (E)data[0];
        maxIndex--;
        data[0] = result;
        heapifyDown(0);
+       checkMinHeapProperty(0);
        return result;
      }
      else {
@@ -107,7 +109,7 @@ public class MinHeap<E extends Comparable<E>> {
     checkMinHeapProperty(leftIndex);
     
     int rightIndex = getRightChildIndex(index);
-    if (leftIndex > maxIndex) return;
+    if (rightIndex > maxIndex) return;
     E rightObject = (E)data[rightIndex];
     int orderRight = thisObject.compareTo(rightObject);
     assert(orderRight <= 0); 
