@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.NoSuchElementException;
 
 
@@ -52,8 +53,8 @@ public class MinHeap<E extends Comparable<E>> {
   public E remove() throws NoSuchElementException {
      if (maxIndex >= 0) {
        E result = (E)data[0];
+       data[0] = data[maxIndex];
        maxIndex--;
-       data[0] = result;
        heapifyDown(0);
        checkMinHeapProperty(0);
        return result;
@@ -64,6 +65,7 @@ public class MinHeap<E extends Comparable<E>> {
   }
 
   private void heapifyDown(int index) {
+    //don't heapify down on last element or indices not corresponding to elements
     if (index >= maxIndex) return;
     E thisObject = (E)data[index];
     int leftIndex = getLeftChildIndex(index);
@@ -83,7 +85,7 @@ public class MinHeap<E extends Comparable<E>> {
       E rightObject = (E)data[rightIndex];
       int orderRight = thisObject.compareTo(rightObject);
       //return if both children are greater or equal
-      if (orderLeft >= 0 && orderRight >=0)
+      if (orderLeft <= 0 && orderRight <=0)
         return;
       //find the smaller child index
       int orderLeftRight = leftObject.compareTo(rightObject);
@@ -114,6 +116,33 @@ public class MinHeap<E extends Comparable<E>> {
     int orderRight = thisObject.compareTo(rightObject);
     assert(orderRight <= 0); 
     checkMinHeapProperty(rightIndex);
+  }
+  
+  public boolean containsAllElements(List<E> elements) {
+    for (E element : elements) {
+      boolean containsElement = containsElement(element);
+      if ( !containsElement ) {
+        System.out.println("missing: " + element);
+        return false;
+      }
+    }
+    return true;
+  }
+  
+  public boolean containsElement(E element) {
+    return containsElement(element, 0);
+  }
+  
+  private boolean containsElement(E element, int index) {
+    if(index > maxIndex) return false;
+    if (((E)data[index]).equals(element)) return true;
+    int leftIndex = getLeftChildIndex(index);
+    int rightIndex = getRightChildIndex(index);
+    return containsElement(element, leftIndex) || containsElement(element, rightIndex);
+  }
+  
+  public int getSize() {
+    return maxIndex + 1;
   }
   
 }
