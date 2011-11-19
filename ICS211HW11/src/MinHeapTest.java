@@ -142,15 +142,15 @@ public class MinHeapTest {
 
     for (int j = 0; j < size; j++) {
       integerMinHeap.add(integerList.get(j));
-      System.out.print(integerList.get(j) + ",");
+      //System.out.print(integerList.get(j) + ",");
     }
-    System.out.println("");
+    //System.out.println("");
     for (int j = 0; j < size; j++) {
       int result = integerMinHeap.remove();
       assert result == j;
-      System.out.print(result + ",");
+      //System.out.print(result + ",");
     }
-    System.out.println("");
+    //System.out.println("");
   }
 
   @Test
