@@ -32,7 +32,7 @@ public class MinHeap<E extends Comparable<E>> {
       heapifyUp(maxIndex);
       checkMinHeapProperty(0);
       long end = System.nanoTime();
-      System.out.println("add() took time " + (end - start));
+      //System.out.println("add() took time " + (end - start));
       return true;
     }
     else {
@@ -117,7 +117,7 @@ public class MinHeap<E extends Comparable<E>> {
       heapifyDown(0);
       checkMinHeapProperty(0);
       long end = System.nanoTime();
-      System.out.println("remove() took time " + (end - start));
+      //System.out.println("remove() took time " + (end - start));
       return result;
     }
     else {

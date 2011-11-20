@@ -1,0 +1,4 @@
+schedule lunch 1300 30
+schedule work 7200 2300
+schedule homework 2359 300
+run 2400
