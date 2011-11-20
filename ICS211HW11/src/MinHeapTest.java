@@ -104,25 +104,35 @@ public class MinHeapTest {
     assertEquals(10, integerMinHeap.data[3]);
     assertEquals(15, integerMinHeap.data[4]);
     
-  //remove the 4
+    //remove the 4
     assertEquals(new Integer(4), integerMinHeap.remove());
     assertTrue( integerMinHeap.containsAllElements(Arrays.asList(new Integer[]{5,10,7,15})) );
     assertEquals(4, integerMinHeap.getSize() );
+    assertEquals(5, integerMinHeap.data[0]);
+    assertEquals(10, integerMinHeap.data[1]);
+    assertEquals(7, integerMinHeap.data[2]);
+    assertEquals(15, integerMinHeap.data[3]);
     
     //remove the 5
     assertEquals(new Integer(5), integerMinHeap.remove());
     assertTrue( integerMinHeap.containsAllElements(Arrays.asList(new Integer[]{10,7,15})) );
     assertEquals(3, integerMinHeap.getSize() );
+    assertEquals(7, integerMinHeap.data[0]);
+    assertEquals(10, integerMinHeap.data[1]);
+    assertEquals(15, integerMinHeap.data[2]);
     
     //remove the 7
     assertEquals(new Integer(7), integerMinHeap.remove());
     assertTrue( integerMinHeap.containsAllElements(Arrays.asList(new Integer[]{10,15})) );
     assertEquals(2, integerMinHeap.getSize() );
+    assertEquals(10, integerMinHeap.data[0]);
+    assertEquals(15, integerMinHeap.data[1]);
     
     //remove the 10
     assertEquals(new Integer(10), integerMinHeap.remove());
     assertTrue( integerMinHeap.containsAllElements(Arrays.asList(new Integer[]{15})) );
     assertEquals(1, integerMinHeap.getSize() );
+    assertEquals(15, integerMinHeap.data[0]);
     
     //remove the 15
     assertEquals(new Integer(15), integerMinHeap.remove());
