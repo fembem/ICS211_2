@@ -97,7 +97,7 @@ public class SimpleHashTable<K, V> {
    * @return the value for that key or null if no entry for that key exists
    */
   public  V get(Object key) {
-    int index = key.hashCode() % currentArrayLength;
+    int index = abs (key.hashCode() ) % currentArrayLength;
     if (data[index] != null)
       return ((Entry<K, V>)data[index]).getValue();
     else
@@ -116,7 +116,11 @@ public class SimpleHashTable<K, V> {
     if (key == null)
       throw new NullPointerException("null keys not allowed");
     
-    int index = key.hashCode() % currentArrayLength;
+    int index = abs(key.hashCode()) % currentArrayLength;
+    if(index < 0) {
+      System.out.println("negative has for key: " + key + " with hash " + index);
+      index = -index;
+    }
     if (data[index] == null) {
       data[index] = new Entry<K, V>(key, value);
       return null;
@@ -129,6 +133,15 @@ public class SimpleHashTable<K, V> {
         data[index] = new Entry(key, value);
         return result;
       } else {  //this is a collision
+        System.out.println("reallocation collision: " + 
+            ((Entry<K, V>)data[index]).key +
+            " with hash = " + abs( ((Entry<K, V>)data[index]).key.hashCode() ) +
+            " % " + currentArrayLength + " = " + 
+            abs( ((Entry<K, V>)data[index]).key.hashCode() ) % currentArrayLength + 
+            "\n\tand " + key +
+            " with hash = " + abs( key.hashCode() ) + 
+            " % " + currentArrayLength + " = " + abs( key.hashCode() % currentArrayLength )
+                );
         reallocate (new Entry(key, value), currentArrayLength);
         return null;
       }
@@ -155,17 +168,24 @@ public class SimpleHashTable<K, V> {
     for(int i = 0; i < currentArrayLength; i++) {
       if (data[i] != null) {
         K key = ((Entry<K, V>)data[i]).key;
-        int newIndex = key.hashCode() % newSize;
+        int newIndex = abs( key.hashCode() ) % newSize;
         if (newDataArray[newIndex] == null) {
           newDataArray[newIndex] = (Entry<K, V>)data[i];
         } else {
+          System.out.println("reallocation collision: " + 
+              ((Entry<K, V>)data[i]).key +
+              " with hash = " + abs( ((Entry<K, V>)data[i]).key.hashCode() ) +
+              " % " + newSize + " = " + abs( ((Entry<K, V>)data[i]).key.hashCode() ) % newSize + 
+              "\n\tand " + key +
+              " with hash = " + abs( key.hashCode() ) + 
+              " % " + newSize + " = " + abs( key.hashCode() ) % newSize);
           collisionDetected = true;
           break;
         }
       }
     }
     //now make sure the new entry causes no collision
-    int newIndex = newEntry.key.hashCode() % newSize;
+    int newIndex = abs( newEntry.key.hashCode() ) % newSize;
     if (newDataArray[newIndex] == null) {
       newDataArray[newIndex] = newEntry;
     } else {
@@ -189,7 +209,7 @@ public class SimpleHashTable<K, V> {
    * no entry with the given key.
    */
   public V remove(Object key) {
-    int index = key.hashCode() % currentArrayLength;
+    int index = abs( key.hashCode() ) % currentArrayLength;
     if (data[index] != null) {
       V result = ((Entry<K, V>)data[index]).getValue();
       data[index] = null;
@@ -197,6 +217,13 @@ public class SimpleHashTable<K, V> {
     }
     else
       return null;
+  }
+  
+  private int abs(int i) {
+    if (i > 0)
+      return i;
+    else 
+      return -i;
   }
   
 }

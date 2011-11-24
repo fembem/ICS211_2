@@ -50,5 +50,17 @@ public class SimpleHashTableTest {
     assertEquals(new Integer(3), table.remove("Bob"));
     assertNull( table.remove("Harry") );
   }
+  
+  @Test
+  public void testLargeDataSet() {
+    table.remove("Leo");
+    table.remove("John");
+    table.remove("Bob");
+    table.remove("Joe");
+    table.remove("Bruce");
+    for (int i = 0; i < 10000; i++) {
+      table.put("number" + i, i);
+    }
+  }
 
 }

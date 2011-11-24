@@ -49,7 +49,7 @@ public class TelephoneDirectory {
         String number = table.remove(name);
         if (number != null)
           System.out.println("removed entry for ('" + name + "', " +
-              number + ") delete from databasase.");
+              number + ") from databasase.");
         else
           System.out.println("no entry for '" + name + "' found in database.");
       }
