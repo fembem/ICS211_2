@@ -104,15 +104,27 @@ public class SimpleHashTable<K, V> {
    * @return the value previously associated with that key if there is one.
    */
   public V put(K key, V value) {
+    
+    if (key == null)
+      throw new NullPointerException("null keys not allowed");
+    
     int index = key.hashCode() % currentArrayLength;
     if (data[index] == null) {
       data[index] = new Entry<K, V>(key, value);
       return null;
     }
-    else {
-      V result = data[index].getValue();
-      data[index] = null;
-      return result;
+    else {  //there is already an entry
+      //is this a collision of an entry with the same key?
+      if(data[index].getKey().equals(key)) {  //it's the same key
+        //store the previous value to return it to the caller
+        V result = data[index].getValue();
+        data[index] = new Entry(key, value);
+        return result;
+      } else {  //this is a collision
+        reallocate (new Entry(key, value), currentArrayLength);
+        return null;
+      }
+      
     }
   }
   
