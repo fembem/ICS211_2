@@ -19,7 +19,7 @@ public class SimpleHashTable<K, V> {
    * @param <K> the key type
    * @param <V> the value type
    */
-  public static class Entry<K, V>{
+  public static class Entry<K, V> implements Comparable<Entry<Comparable<K>, V>>{
     
     /** The key. */
     K key;
@@ -56,6 +56,13 @@ public class SimpleHashTable<K, V> {
       this.key = key;
       this.value = value;
     }
+
+    @Override
+    public int compareTo(Entry<Comparable<K>, V> other) {
+      return - other.key.compareTo(this.key);
+    }
+
+
   }
   
   /** The initial data array size. */
@@ -65,7 +72,8 @@ public class SimpleHashTable<K, V> {
   int currentArrayLength = INITIAL_ARRAY_SIZE;
   
   /** The data array. */
-  Entry<K, V>[] data = (Entry<K, V>[]) new Object[currentArrayLength];
+  //Entry<K, V>[] data = (Entry<K, V>[]) new Object[currentArrayLength];
+  Object[] data = new Object[currentArrayLength];
       
   /**
    * Get all entries in the hash table.
@@ -76,7 +84,7 @@ public class SimpleHashTable<K, V> {
     Set<Entry<K,V>> result = new TreeSet<Entry<K,V>>();
     for(int i = 0; i < currentArrayLength; i++) {
       if (data[i] != null) {
-         result.add(data[i]);
+         result.add((Entry<K, V>)data[i]);
       }
     }
     return result;
@@ -91,7 +99,7 @@ public class SimpleHashTable<K, V> {
   public  V get(Object key) {
     int index = key.hashCode() % currentArrayLength;
     if (data[index] != null)
-      return data[index].getValue();
+      return ((Entry<K, V>)data[index]).getValue();
     else
       return null;
   }
@@ -115,9 +123,9 @@ public class SimpleHashTable<K, V> {
     }
     else {  //there is already an entry
       //is this a collision of an entry with the same key?
-      if(data[index].getKey().equals(key)) {  //it's the same key
+      if(((Entry<K, V>)data[index]).getKey().equals(key)) {  //it's the same key
         //store the previous value to return it to the caller
-        V result = data[index].getValue();
+        V result = ((Entry<K, V>)data[index]).getValue();
         data[index] = new Entry(key, value);
         return result;
       } else {  //this is a collision
@@ -141,14 +149,15 @@ public class SimpleHashTable<K, V> {
     
     System.out.println("reallocating:  attempting array of size " + newSize);
     
-    Entry<K, V>[] newDataArray = (Entry<K, V>[]) new Object[newSize];
+    //Entry<K, V>[] newDataArray = (Entry<K, V>[]) new Object[newSize];
+    Object[] newDataArray = new Object[newSize];
     boolean collisionDetected = false;
     for(int i = 0; i < currentArrayLength; i++) {
       if (data[i] != null) {
-        K key = data[i].key;
+        K key = ((Entry<K, V>)data[i]).key;
         int newIndex = key.hashCode() % newSize;
         if (newDataArray[newIndex] == null) {
-          newDataArray[newIndex] = data[i];
+          newDataArray[newIndex] = (Entry<K, V>)data[i];
         } else {
           collisionDetected = true;
           break;
@@ -182,7 +191,7 @@ public class SimpleHashTable<K, V> {
   public V remove(Object key) {
     int index = key.hashCode() % currentArrayLength;
     if (data[index] != null) {
-      V result = data[index].getValue();
+      V result = ((Entry<K, V>)data[index]).getValue();
       data[index] = null;
       return result;
     }
