@@ -1,3 +1,10 @@
+/* a class for an array based min heap
+ * @author  Dec, Leo
+ * @assignment  11
+ * @date  November 20, 2011
+ * 
+ */
+
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -8,20 +15,20 @@ import java.util.NoSuchElementException;
  */
 public class MinHeap<E extends Comparable<E>> {
 
-  /** The length. */
+  /** The number of elements that can be in the heap. */
   int length = 1000;
   
-  /** The data. */
+  /** The data array used to store heap elements. */
   Object[] data = new Object[length];
   
-  /** The max index. */
+  /** The index of the last heap element. */
   int maxIndex = -1;
 
   /**
    * Adds the.
    *
-   * @param e the e
-   * @return true, if successful
+   * @param e the elemenst to add
+   * @return true, if the item successfully added to the heap
    * @throws IllegalStateException the illegal state exception
    */
   public boolean add(E e) throws IllegalStateException {
@@ -43,7 +50,8 @@ public class MinHeap<E extends Comparable<E>> {
   /**
    * Heapify up.
    *
-   * @param index the index
+   * @param index the index for which we need to check it and its ancestors for the
+   * min-heap property
    */
   private void heapifyUp(int index) {
     while (index > 0) {
@@ -62,8 +70,8 @@ public class MinHeap<E extends Comparable<E>> {
   /**
    * Gets the parent index.
    *
-   * @param index the index
-   * @return the parent index
+   * @param index the index of a node in the tree
+   * @return the index of its parent node
    */
   private int getParentIndex(int index) {
     return (index - 1) / 2;
@@ -72,8 +80,9 @@ public class MinHeap<E extends Comparable<E>> {
   /**
    * Gets the left child index.
    *
-   * @param index the index
-   * @return the left child index
+   * @param index the index of a node in the tree
+   * @return the index of its left child or that its left child would have
+   * if it existed.
    */
   private int getLeftChildIndex(int index) {
     return 2 * index + 1;
@@ -83,7 +92,8 @@ public class MinHeap<E extends Comparable<E>> {
    * Gets the right child index.
    *
    * @param index the index
-   * @return the right child index
+   * @return the index of its right child or that its right child would have
+   * if it existed.
    */
   private int getRightChildIndex(int index) {
     return 2 * index + 2;
@@ -92,8 +102,8 @@ public class MinHeap<E extends Comparable<E>> {
   /**
    * Swap elements.
    *
-   * @param i the i
-   * @param j the j
+   * @param i the index of the first element to swap
+   * @param j the index of the second element to swap
    */
   private void swapElements(int i, int j) {
     E temp = (E) data[i];
@@ -104,8 +114,8 @@ public class MinHeap<E extends Comparable<E>> {
   /**
    * Removes the.
    *
-   * @return the e
-   * @throws NoSuchElementException the no such element exception
+   * @return the element at the root of the tree, i.e. the smallest element
+   * @throws NoSuchElementException if there are no elements in the tree
    */
   public E remove() throws NoSuchElementException {
 
@@ -128,7 +138,8 @@ public class MinHeap<E extends Comparable<E>> {
   /**
    * Heapify down.
    *
-   * @param index the index
+   * @param index the index for which we need to restore the heap property
+   * to it and its descendants.
    */
   private void heapifyDown(int index) {
     // don't heapify down on last element or indices not corresponding to elements
@@ -172,7 +183,7 @@ public class MinHeap<E extends Comparable<E>> {
   /**
    * Check min heap property.
    *
-   * @param index the index
+   * @param index the index of the subtree to check for the min-heap property
    */
   private void checkMinHeapProperty(int index) {
     if (index >= maxIndex)
@@ -198,8 +209,8 @@ public class MinHeap<E extends Comparable<E>> {
   /**
    * Contains all elements.
    *
-   * @param elements the elements
-   * @return true, if successful
+   * @param elements a list for elements of type E.
+   * @return true, if the elements in the list are all in the heap
    */
   public boolean containsAllElements(List<E> elements) {
     for (E element : elements) {
@@ -215,19 +226,19 @@ public class MinHeap<E extends Comparable<E>> {
   /**
    * Contains element.
    *
-   * @param element the element
-   * @return true, if successful
+   * @param element an element of type E.
+   * @return true, if E is in the heap.
    */
   public boolean containsElement(E element) {
     return containsElement(element, 0);
   }
 
   /**
-   * Contains element.
+   * Contains element.  Recursive helper method for public method.
    *
-   * @param element the element
-   * @param index the index
-   * @return true, if successful
+   * @param element the element to search for.
+   * @param index the index of the subtree to search in
+   * @return true, if the element is in the subtree with root at the index
    */
   private boolean containsElement(E element, int index) {
     if (index > maxIndex)
@@ -240,7 +251,7 @@ public class MinHeap<E extends Comparable<E>> {
   }
 
   /**
-   * Gets the size.
+   * Gets the number of elements in the heap.
    *
    * @return the size
    */
